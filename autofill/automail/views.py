@@ -6,8 +6,10 @@ from automail.gmail import GMailParser
 from django.shortcuts import render_to_response
 from automail.util import checkOrderItemDuplicate
 from django.http import HttpResponseRedirect
-import urllib2;
-import urllib;
+import urllib2
+import urllib
+import json
+
 def GetMail(request):
     parser = GMailParser()
     parser.readMail()
@@ -33,8 +35,16 @@ def authResult(request):
         code = request.GET['code']        
         post_data = [('client_id','21379702'),('client_secret','0cac40fa9899dfd09e8320427f748df4'), ('grant_type', 'authorization_code'),('code', code),('redirect_uri', 'http://127.0.0.1:8000/tokenResult/')]
         result = urllib2.urlopen('https://oauth.taobao.com/token', urllib.urlencode(post_data))
-        content = result.read()
-        print content
+        content = result.read()        
+        import pdb
+        pdb.set_trace()
+        jsonobj = json.load(content)
+        access_token = content['access_token']
+        refresh_token = content['refresh_token']
+        expires_in = content['expires_in']
+        print access_token
+        print refresh_token
+        print expires_in
     return render_to_response('base.html', None)
 
 def auth(request):
