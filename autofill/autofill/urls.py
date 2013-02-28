@@ -19,4 +19,5 @@ urlpatterns = patterns('',
     url(r'^deleteDuplicateOrderItem','automail.views.deleteDuplicate'),
     url(r'^auth/', 'automail.views.auth'),
     url(r'^authResult/', 'automail.views.authResult'),
+    url(r'^test/', 'automail.views.main'),
 )
